@@ -11,17 +11,17 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-import vn.edu.poly.mcomics.R;
-import vn.edu.poly.mcomics.object.handle.backgroundtask.CheckInternet;
-import vn.edu.poly.mcomics.object.handle.backgroundtask.LoadJsonInBackground;
-import vn.edu.poly.mcomics.object.handle.custom.adapter.AdapterImage;
-import vn.edu.poly.mcomics.object.handle.eventlistener.DownloadEvent;
-import vn.edu.poly.mcomics.object.handle.eventlistener.OrientationChangeListener;
-import vn.edu.poly.mcomics.object.handle.json.ParserJSON;
-import vn.edu.poly.mcomics.object.handle.other.NavigationDrawer;
-import vn.edu.poly.mcomics.object.handle.other.SettingHandle;
-import vn.edu.poly.mcomics.object.handle.social.FacebookAPI;
-import vn.edu.poly.mcomics.object.variable.Content;
+import com.champhay.mcomics.R;
+import com.champhay.mcomics.object.handle.backgroundtask.CheckInternet;
+import com.champhay.mcomics.object.handle.backgroundtask.LoadJsonInBackground;
+import com.champhay.mcomics.object.handle.custom.adapter.AdapterImage;
+import com.champhay.mcomics.object.handle.eventlistener.DownloadEvent;
+import com.champhay.mcomics.object.handle.eventlistener.OrientationChangeListener;
+import com.champhay.mcomics.object.handle.json.ParserJSON;
+import com.champhay.mcomics.object.handle.other.NavigationDrawer;
+import com.champhay.mcomics.object.handle.other.SettingHandle;
+import com.champhay.mcomics.object.handle.social.FacebookAPI;
+import com.champhay.mcomics.object.variable.Content;
 
 
 public class ComicsReadingActivity extends AppCompatActivity implements OrientationChangeListener{
