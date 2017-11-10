@@ -1,6 +1,6 @@
 package com.champhay.Model.handler.social;
 
-import com.champhay.Model.handler.social.eventlistener.DownloadEvent;
+import com.champhay.Model.handler.eventlistener.DownloadEvent;
 import com.champhay.Model.other.Show;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -30,16 +30,14 @@ public class FacebookHandle {
                 "/" + id + "/" + objectName,
                 null,
                 HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        Show.log("getCount.response", response.toString());
-                        try {
-                            int count = response.getJSONObject().getJSONArray("data").length();
-                            Show.log("getCount", count + "");
-                            downloadEvent.onLoadFinish(response.getJSONObject().getJSONArray("data").length() + "");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                response -> {
+                    Show.log("getCount.response", response.toString());
+                    try {
+                        int count = response.getJSONObject().getJSONArray("data").length();
+                        Show.log("getCount", count + "");
+                        downloadEvent.onLoadFinish(response.getJSONObject().getJSONArray("data").length() + "");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
         ).executeAsync();

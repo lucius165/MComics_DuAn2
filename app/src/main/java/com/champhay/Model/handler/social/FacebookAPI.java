@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.champhay.Model.handler.social.eventlistener.DownloadEvent;
 import com.champhay.Model.other.Show;
 import com.champhay.mcomics.R;
 import com.facebook.AccessToken;
