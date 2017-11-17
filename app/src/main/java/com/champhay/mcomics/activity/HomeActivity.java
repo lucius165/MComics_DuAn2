@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.champhay.Model.Util;
 import com.champhay.Model.custom.adapter.RecycleViewCustomAdapter;
 import com.champhay.Model.custom.component.NavigationDrawer;
 import com.champhay.Model.handler.backgroundtask.CheckInternet;
@@ -63,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements DownloadEvent {
     public void startLoadData() {
         LoadJsonInBackground backgroundTask = new LoadJsonInBackground();
         backgroundTask.setOnFinishEvent(this);
-        backgroundTask.execute("http://grayguy.xyz/?kind=top");
+        backgroundTask.execute(Util.BASE_URL + "?kind=top");
     }
 
     @Override
@@ -98,7 +99,7 @@ public class HomeActivity extends AppCompatActivity implements DownloadEvent {
                 e.printStackTrace();
             }
         });
-        backgroundTask.execute("http://grayguy.xyz/?kind=all&table=comic_kinds");
+        backgroundTask.execute(Util.BASE_URL + "?kind=all&table=comic_kinds");
     }
 
     public void createRecyclerView(View view, ArrayList<Comics> comicsArray) {
