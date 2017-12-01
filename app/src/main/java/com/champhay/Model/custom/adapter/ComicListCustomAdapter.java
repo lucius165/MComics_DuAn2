@@ -16,6 +16,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * HoangTP
+ *
+ * */
+
 public class ComicListCustomAdapter extends BaseAdapter {
 
     private Context mContext;

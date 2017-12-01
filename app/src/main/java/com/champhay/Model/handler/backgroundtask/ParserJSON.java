@@ -27,14 +27,15 @@ public class ParserJSON {
     }
 
     public Comics getComic(JSONObject jsonObject) throws JSONException {
-        return new Comics(jsonObject.getInt("id"),
-                jsonObject.getString("comics_name"),
-                jsonObject.getString("kind"),
-                jsonObject.getString("thumbnail"),
-                jsonObject.getInt("views"),
-                jsonObject.getString("author"),
-                jsonObject.getString("episodes"),
-                jsonObject.getString("content"));
+        return new Comics(jsonObject.getInt("ID"),
+                jsonObject.getString("COMICS_NAME"),
+                jsonObject.getString("COMICS_TYPE"),
+                jsonObject.getString("THUMBNAIL"),
+                jsonObject.getInt("VIEWS"),
+                jsonObject.getString("AUTHOR"),
+//                jsonObject.getString("episodes"),
+                "",
+                jsonObject.getString("CONTENT"));
     }
 
     public ArrayList<ComicsKind> getComicKindArray(String json) throws JSONException {

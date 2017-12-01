@@ -3,11 +3,16 @@ package com.champhay.mcomics.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -30,6 +35,7 @@ import com.champhay.mcomics.R;
 
 import org.json.JSONException;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 /**
@@ -52,6 +58,19 @@ public class HomeActivity extends AppCompatActivity implements DownloadEvent {
 
         createLoadingFragment();
         startLoadData();
+
+//        try {
+//            PackageInfo info = getPackageManager().getPackageInfo(
+//                    "com.champhay.mcomics",
+//                    PackageManager.GET_SIGNATURES);
+//            for (Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (Exception ignored) {
+//            Log.e("here", "error");
+//        }
     }
 
     //button search
@@ -64,7 +83,7 @@ public class HomeActivity extends AppCompatActivity implements DownloadEvent {
     public void startLoadData() {
         LoadJsonInBackground backgroundTask = new LoadJsonInBackground();
         backgroundTask.setOnFinishEvent(this);
-        backgroundTask.execute(Util.BASE_URL + "?kind=top");
+        backgroundTask.execute(Util.BASE_URL + "/comicsApi.php/getComicsTop");
     }
 
     @Override
@@ -99,7 +118,7 @@ public class HomeActivity extends AppCompatActivity implements DownloadEvent {
                 e.printStackTrace();
             }
         });
-        backgroundTask.execute(Util.BASE_URL + "?kind=all&table=comic_kinds");
+        backgroundTask.execute(Util.BASE_URL + "/comicsApi.php/getComicsAll");
     }
 
     public void createRecyclerView(View view, ArrayList<Comics> comicsArray) {

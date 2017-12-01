@@ -5,5 +5,5 @@ package com.champhay.Model;
  */
 
 public class Util {
-    public static final String BASE_URL = "http://grayguy.xyz/";
+    public static final String BASE_URL = "http://mcomics.xyz";
 }
