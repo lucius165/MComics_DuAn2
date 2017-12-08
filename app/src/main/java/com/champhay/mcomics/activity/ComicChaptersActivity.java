@@ -23,10 +23,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 /**
- *
  * HoangTP
- *
- * */
+ */
 
 public class ComicChaptersActivity extends AppCompatActivity implements DownloadEvent {
     private GridView gridView;
@@ -37,7 +35,7 @@ public class ComicChaptersActivity extends AppCompatActivity implements Download
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!CheckInternet.check(this)){
+        if (!CheckInternet.check(this)) {
             setContentView(R.layout.view_connect_fail);
             return;
         }
@@ -49,7 +47,7 @@ public class ComicChaptersActivity extends AppCompatActivity implements Download
         comicId = getIntent().getStringExtra("id");
         LoadJsonInBackground loadJson = new LoadJsonInBackground();
         loadJson.setOnFinishEvent(this);
-        loadJson.execute(Util.BASE_URL + "?kind=chapter_list&comics_id=" + comicId);
+        loadJson.execute(Util.BASE_URL + "/comicsApi.php/getListChapterComics?id=" + comicId);
     }
 
     @Override
@@ -63,8 +61,8 @@ public class ComicChaptersActivity extends AppCompatActivity implements Download
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(getBaseContext(), ComicsReadingActivity.class);
-                    intent.putExtra("id", comicId);
-                    intent.putExtra("chapter", position + 1);
+                    intent.putExtra("ID", comicId);
+                    intent.putExtra("CHAPTER", position + 1);
                     startActivity(intent);
                 }
             });

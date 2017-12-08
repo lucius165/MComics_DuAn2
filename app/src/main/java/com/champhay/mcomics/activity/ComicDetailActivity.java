@@ -3,6 +3,7 @@ package com.champhay.mcomics.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -31,12 +32,11 @@ import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
- *
  * HoangTP
- *
- * */
+ */
 
 public class ComicDetailActivity extends AppCompatActivity implements DownloadEvent {
     private Button btn_openComics;
@@ -67,7 +67,9 @@ public class ComicDetailActivity extends AppCompatActivity implements DownloadEv
 
         LoadJsonInBackground loadJson = new LoadJsonInBackground();
         loadJson.setOnFinishEvent(this);
-        loadJson.execute(Util.BASE_URL + "?kind=comics_detail&id=" + id);
+        loadJson.execute(Util.BASE_URL + "/comicsApi.php/getComicsDetailById?id=" + id);
+        Log.e("log", Util.BASE_URL + "/comicsApi.php/getComicsDetailById?id=" + id);
+
 
         btn_openComics.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -252,7 +254,7 @@ public class ComicDetailActivity extends AppCompatActivity implements DownloadEv
     @Override
     public void onLoadFinish(String string) {
         try {
-            comics = new ParserJSON().getComic(new JSONArray(string).getJSONObject(0));
+            comics = new ParserJSON().getComic(new JSONObject(string));
             Picasso.with(this).load(comics.getThumbnail()).resize(400, 600).error(R.mipmap.bia).into(((ImageView) findViewById(R.id.imv_cover)));
             ((TextView) findViewById(R.id.txv_name)).setText(comics.getComicsName());
             ((TextView) findViewById(R.id.txv_author)).setText(comics.getAuthor());

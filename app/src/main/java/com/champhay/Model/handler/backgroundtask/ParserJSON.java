@@ -48,8 +48,8 @@ public class ParserJSON {
     }
 
     public ComicsKind getComicKind(JSONObject jsonObject) throws JSONException {
-        return new ComicsKind(jsonObject.getInt("id"),
-                jsonObject.getString("kind_name"));
+        return new ComicsKind(jsonObject.getInt("ID"),
+                jsonObject.getString("COMICS_TYPE"));
     }
 
     public ArrayList<Integer> getChapterArray(String json) throws JSONException {
