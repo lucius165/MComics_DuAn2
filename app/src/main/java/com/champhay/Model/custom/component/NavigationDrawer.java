@@ -51,9 +51,6 @@ public class NavigationDrawer implements View.OnClickListener {
     private Dialog brightnessDialog, viewModeDialog;
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
-    private FacebookAPI facebookAPI;
-    private LoginButton loginButton;
-    private TextView txv_log;
     private LinearLayout btn_vertical, btn_horizontal;
     private SettingHandle settingHandle;
     private SeekBar seekBar;
@@ -61,7 +58,7 @@ public class NavigationDrawer implements View.OnClickListener {
     private Dialog dialog;
 
     private final int REQUEST_CODE = 200;
-    private TableRow btn_likes, btn_shares, btn_log, btn_brightness, btn_viewMode, btn_exit;
+    private TableRow btn_brightness, btn_viewMode, btn_exit;
     private final float ONE_PERCENT = 255f / 100f;
 
     public NavigationDrawer(final Activity activity, int layout, ViewGroup viewGroup) {
@@ -74,34 +71,20 @@ public class NavigationDrawer implements View.OnClickListener {
         ((FrameLayout) parent.findViewById(R.id.root)).addView(mainView);
         dialog = new Dialog(activity);
         showDialog(R.id.btn_info, R.layout.view_information_app);
-        createFbLoginButton();
         setButtonOnClick();
         createBrightnessDialog();
         createViewModeDialog();
         doubleClickExitButton();
-        new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                checkLogin();
-            }
-        };
 
         createNavigationButton();
     }
 
     private void mappings(int layout) {
-        facebookAPI = new FacebookAPI(activity);
-        facebookAPI.init();
         toolbar = inflater.inflate(R.layout.view_toolbar, ((ViewGroup) mainView), false).findViewById(R.id.toolBar);
         drawerLayout = ((DrawerLayout) parent);
         mainView = (inflater.inflate(layout, parent, false));
-        loginButton = parent.findViewById(R.id.fb_login);
-        btn_likes = parent.findViewById(R.id.btn_like);
-        btn_shares = parent.findViewById(R.id.btn_share);
-        btn_log = parent.findViewById(R.id.btn_log);
         btn_brightness = parent.findViewById(R.id.btn_brightness);
         btn_viewMode = parent.findViewById(R.id.btn_viewMode);
-        txv_log = parent.findViewById(R.id.txv_log);
         settingHandle = new SettingHandle(activity);
     }
 
@@ -133,9 +116,6 @@ public class NavigationDrawer implements View.OnClickListener {
     }
 
     private void setButtonOnClick() {
-        btn_likes.setOnClickListener(this);
-        btn_shares.setOnClickListener(this);
-        btn_log.setOnClickListener(this);
         btn_brightness.setOnClickListener(this);
         btn_viewMode.setOnClickListener(this);
     }
@@ -165,18 +145,6 @@ public class NavigationDrawer implements View.OnClickListener {
         Point point = new Point();
         activity.getWindowManager().getDefaultDisplay().getSize(point);
         return point.y;
-    }
-
-    private void checkLogin() {
-        if (facebookAPI.isLogged()) {
-            btn_likes.setAlpha(1);
-            btn_shares.setAlpha(1);
-            txv_log.setText("Đăng xuất");
-        } else {
-            btn_likes.setAlpha(0.7f);
-            btn_shares.setAlpha(0.7f);
-            txv_log.setText("Đăng Nhập");
-        }
     }
 
     private void createBrightnessDialog() {
@@ -247,27 +215,6 @@ public class NavigationDrawer implements View.OnClickListener {
         btn_horizontal.setBackgroundColor(Color.parseColor("#FFFFFF"));
     }
 
-    private void createFbLoginButton() {
-        facebookAPI.createLoginButton(loginButton,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        Toast.makeText(activity, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-                        Toast.makeText(activity, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-                    }
-                });
-        checkLogin();
-    }
-
     private void createNavigationButton() {
         toolbar.findViewById(R.id.navigation_button).setOnClickListener(v -> showHideNavigation());
     }
@@ -282,41 +229,11 @@ public class NavigationDrawer implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == btn_likes.getId()) {
-            likesClicked();
-        } else if (id == btn_shares.getId()) {
-            sharesClicked();
-        } else if (id == btn_log.getId()) {
-            loginClicked();
-        } else if (id == btn_brightness.getId()) {
+        if (id == btn_brightness.getId()) {
             brightnessClicked();
         } else if (id == btn_viewMode.getId()) {
             viewModeClicked();
         }
-    }
-
-    private void loginClicked() {
-        facebookAPI.createLoginButton(loginButton, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Show.toastSHORT(activity, "Đăng nhập thành công");
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Show.toastSHORT(activity, "Đăng nhập thất bại");
-            }
-        });
-        loginButton.performClick();
-    }
-
-    private void sharesClicked() {
-        facebookAPI.showShareDialog(new FacebookContent(null, null, null, "https://www.facebook.com/MComics-252252888524492/"));
     }
 
     private void likesClicked() {
@@ -343,6 +260,6 @@ public class NavigationDrawer implements View.OnClickListener {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        facebookAPI.onActivityResult(requestCode, resultCode, data);
+
     }
 }

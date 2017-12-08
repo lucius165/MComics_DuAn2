@@ -30,7 +30,6 @@ public class ComicChaptersActivity extends AppCompatActivity implements Download
     private GridView gridView;
     private String comicId;
     private NavigationDrawer navigationDrawer;
-    private FacebookAPI facebookAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +38,6 @@ public class ComicChaptersActivity extends AppCompatActivity implements Download
             setContentView(R.layout.view_connect_fail);
             return;
         }
-        facebookAPI = new FacebookAPI(this);
-        facebookAPI.init();
         setContentView(R.layout.view_navigation);
         navigationDrawer = new NavigationDrawer(this, R.layout.activity_comic_chapters, (ViewGroup) (findViewById(R.id.root).getParent()));
 
@@ -74,6 +71,5 @@ public class ComicChaptersActivity extends AppCompatActivity implements Download
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        facebookAPI.onActivityResult(requestCode, resultCode, data);
     }
 }

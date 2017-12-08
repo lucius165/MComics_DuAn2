@@ -25,17 +25,14 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 /**
- *
  * HoangTP
- *
- * */
+ */
 
 public class ComicsReadingActivity extends AppCompatActivity implements OrientationChangeListener {
     private ArrayList<Content> urlList;
     private RecyclerView recyclerView;
     private String id;
     private String chapter;
-    private FacebookAPI facebookAPI;
     private NavigationDrawer navigationDrawer;
     private SettingHandle settingHandle;
     private LinearLayoutManager layoutManager;
@@ -47,8 +44,6 @@ public class ComicsReadingActivity extends AppCompatActivity implements Orientat
             setContentView(R.layout.view_connect_fail);
             return;
         }
-        facebookAPI = new FacebookAPI(this);
-        facebookAPI.init();
         setContentView(R.layout.view_navigation);
         navigationDrawer = new NavigationDrawer(this, R.layout.activity_comics_reading, (ViewGroup) (findViewById(R.id.root).getParent()));
         navigationDrawer.hideActionbar();
@@ -71,7 +66,7 @@ public class ComicsReadingActivity extends AppCompatActivity implements Orientat
                 load(string);
             }
         });
-        loadJsonInBackground.execute(Util.BASE_URL + "?kind=comics_content&comics_id=" + id + "&chapter_number=" + chapter);
+        loadJsonInBackground.execute(Util.BASE_URL + "/comicsApi.php/getComicsDetail?id=" + id + "&chapter=" + chapter);
     }
 
     public void load(String s) {
@@ -87,7 +82,6 @@ public class ComicsReadingActivity extends AppCompatActivity implements Orientat
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        facebookAPI.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -95,7 +89,7 @@ public class ComicsReadingActivity extends AppCompatActivity implements Orientat
         showView();
     }
 
-    public void showView(){
+    public void showView() {
         layoutManager.setOrientation(settingHandle.getOrientation());
         recyclerView.setLayoutManager(layoutManager);
         AdapterImage adapter = new AdapterImage(this, urlList);

@@ -24,10 +24,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 /**
- *
- *  HoangTP
- *
- * */
+ * HoangTP
+ */
 
 public class ComicsCategoryActivity extends AppCompatActivity implements DownloadEvent {
     private GridView androidGridView;
@@ -49,8 +47,11 @@ public class ComicsCategoryActivity extends AppCompatActivity implements Downloa
         text = (TextView) findViewById(R.id.text);
         LoadJsonInBackground backgroundTask = new LoadJsonInBackground();
         backgroundTask.setOnFinishEvent(this);
-        backgroundTask.execute(Util.BASE_URL + "?kind=by_kind&comic_kind=" + getIntent().getExtras().getInt("id"));
+        try {
+            backgroundTask.execute(Util.BASE_URL + "/comicsApi.php/getComicsByKind?kind=" + getIntent().getExtras().getInt("id"));
+        } catch (Exception ignored) {
 
+        }
     }
 
     //button search

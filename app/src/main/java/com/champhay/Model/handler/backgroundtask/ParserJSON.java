@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class ParserJSON {
     public ArrayList<Comics> getComicArray(String JSON) throws JSONException {
         ArrayList<Comics> comicsArray = new ArrayList<>();
+        if (JSON == null) return comicsArray;
         JSONArray jsonArray = new JSONArray(JSON);
         for (int x = 0; x < jsonArray.length(); x++) {
             comicsArray.add(getComic(jsonArray.getJSONObject(x)));

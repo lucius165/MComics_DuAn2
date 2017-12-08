@@ -52,8 +52,6 @@ public class HomeActivity extends AppCompatActivity implements DownloadEvent {
             setContentView(R.layout.view_connect_fail);
             return;
         }
-        FacebookAPI facebookAPI = new FacebookAPI(this);
-        facebookAPI.init();
         setContentView(R.layout.activity_home);
 
         createLoadingFragment();
