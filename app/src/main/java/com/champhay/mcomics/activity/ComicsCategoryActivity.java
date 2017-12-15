@@ -3,6 +3,7 @@ package com.champhay.mcomics.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -48,9 +49,9 @@ public class ComicsCategoryActivity extends AppCompatActivity implements Downloa
         LoadJsonInBackground backgroundTask = new LoadJsonInBackground();
         backgroundTask.setOnFinishEvent(this);
         try {
-            backgroundTask.execute(Util.BASE_URL + "/comicsApi.php/getComicsByKind?kind=" + getIntent().getExtras().getInt("id"));
+            backgroundTask.execute(Util.BASE_URL + "/comicsApi.php/getListComicsByKind?kind=" + getIntent().getExtras().getInt("id"));
         } catch (Exception ignored) {
-
+            Log.e("log", "ComicsCategoryActivity");
         }
     }
 

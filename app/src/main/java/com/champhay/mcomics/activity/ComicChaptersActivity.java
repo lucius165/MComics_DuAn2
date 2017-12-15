@@ -3,6 +3,7 @@ package com.champhay.mcomics.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -54,14 +55,11 @@ public class ComicChaptersActivity extends AppCompatActivity implements Download
             final ArrayList<Integer> list = parserJSON.getChapterArray(string);
             gridView = ((GridView) findViewById(R.id.gridView));
             gridView.setAdapter(new ChapterListAdapter(this, list, comicId));
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(getBaseContext(), ComicsReadingActivity.class);
-                    intent.putExtra("ID", comicId);
-                    intent.putExtra("CHAPTER", position + 1);
-                    startActivity(intent);
-                }
+            gridView.setOnItemClickListener((parent, view, position, id) -> {
+                Intent intent = new Intent(getBaseContext(), ComicsReadingActivity.class);
+                intent.putExtra("id", comicId);
+                intent.putExtra("chapter", position + 1);
+                startActivity(intent);
             });
         } catch (JSONException e) {
             e.printStackTrace();

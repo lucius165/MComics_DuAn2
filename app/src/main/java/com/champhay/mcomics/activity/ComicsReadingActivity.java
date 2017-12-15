@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.champhay.Model.Util;
@@ -60,12 +61,7 @@ public class ComicsReadingActivity extends AppCompatActivity implements Orientat
         id = intent.getStringExtra("id");
         chapter = intent.getIntExtra("chapter", 0) + "";
         LoadJsonInBackground loadJsonInBackground = new LoadJsonInBackground();
-        loadJsonInBackground.setOnFinishEvent(new DownloadEvent() {
-            @Override
-            public void onLoadFinish(String string) {
-                load(string);
-            }
-        });
+        loadJsonInBackground.setOnFinishEvent(string -> load(string));
         loadJsonInBackground.execute(Util.BASE_URL + "/comicsApi.php/getComicsDetail?id=" + id + "&chapter=" + chapter);
     }
 

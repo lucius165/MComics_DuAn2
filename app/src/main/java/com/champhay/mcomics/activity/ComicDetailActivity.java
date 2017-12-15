@@ -66,21 +66,13 @@ public class ComicDetailActivity extends AppCompatActivity implements DownloadEv
         loadJson.setOnFinishEvent(this);
         loadJson.execute(Util.BASE_URL + "/comicsApi.php/getComicsDetailById?id=" + id);
 
-        btn_openComics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(getBaseContext(), ComicChaptersActivity.class);
-                intent2.putExtra("id", id);
-                startActivity(intent2);
-            }
+        btn_openComics.setOnClickListener(v -> {
+            Intent intent2 = new Intent(getBaseContext(), ComicChaptersActivity.class);
+            intent2.putExtra("id", id);
+            startActivity(intent2);
         });
 
-        txv_readMoreBottom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showHideReview();
-            }
-        });
+        txv_readMoreBottom.setOnClickListener(v -> showHideReview());
     }
 
     public void getView() {

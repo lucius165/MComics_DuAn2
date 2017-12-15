@@ -49,15 +49,15 @@ public class ParserJSON {
     }
 
     public ComicsKind getComicKind(JSONObject jsonObject) throws JSONException {
-        return new ComicsKind(jsonObject.getInt("ID"),
-                jsonObject.getString("COMICS_TYPE"));
+        return new ComicsKind(jsonObject.getInt("KIND_ID"),
+                jsonObject.getString("KIND_NAME"));
     }
 
     public ArrayList<Integer> getChapterArray(String json) throws JSONException {
         ArrayList<Integer> chapterArray = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(json);
         for (int x = 0; x < jsonArray.length(); x++) {
-            chapterArray.add(jsonArray.getJSONObject(x).getInt("chapter_number"));
+            chapterArray.add(jsonArray.getJSONObject(x).getInt("CHAPTER_NUMBER"));
         }
         return chapterArray;
     }
@@ -66,8 +66,8 @@ public class ParserJSON {
         ArrayList<Content> list = new ArrayList<>();
         JSONArray jsonArray = new JSONArray(json);
         for (int x = 0; x < jsonArray.length(); x++) {
-            int page = Integer.parseInt(jsonArray.getJSONObject(x).getString("page_number"));
-            String link = jsonArray.getJSONObject(x).getString("link");
+            int page = Integer.parseInt(jsonArray.getJSONObject(x).getString("PAGE_NUMBER"));
+            String link = jsonArray.getJSONObject(x).getString("LINKS");
             list.add(new Content(page, link));
         }
         return list;

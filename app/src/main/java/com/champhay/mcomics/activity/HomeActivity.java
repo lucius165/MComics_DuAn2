@@ -116,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements DownloadEvent {
                 e.printStackTrace();
             }
         });
-        backgroundTask.execute(Util.BASE_URL + "/comicsApi.php/getComicsAll");
+        backgroundTask.execute(Util.BASE_URL + "/comicsApi.php/getListKind");
     }
 
     public void createRecyclerView(View view, ArrayList<Comics> comicsArray) {
